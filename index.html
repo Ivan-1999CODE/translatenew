@@ -17,8 +17,9 @@
         @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .tab-active { border-bottom: 3px solid #16a34a; color: #15803d; font-weight: bold; background-color: #f0fdf4; }
         .tab-inactive { color: #64748b; hover:text-green-600; hover:bg-white; }
-        .step-line { position: absolute; left: 19px; top: 35px; bottom: 0; width: 2px; background: #cbd5e1; z-index: 0; }
-        .highlight-text { background: linear-gradient(120deg, #bbf7d0 0%, #bbf7d0 100%); background-repeat: no-repeat; background-size: 100% 40%; background-position: 0 88%; }
+        .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .concept-card { transition: transform 0.2s; }
+        .concept-card:hover { transform: translateY(-2px); }
     </style>
 </head>
 <body>
@@ -30,69 +31,82 @@
         const levels = [
             {
                 id: "level1",
-                title: "第一關：基礎結構",
-                desc: "重點：抓出主詞、後位修飾 (A of B / 關代)",
+                title: "第一關：基礎與形容詞子句",
+                type: "exercise",
+                desc: "重點：S+V骨架、後位修飾 (形容詞子句)",
                 teaching: [
                     {
                         id: "t1-1",
                         chinese: "人類的想像和創意是科技進步最大的驅動力。",
                         guide: [
                             { 
-                                title: "步驟一：抓出骨架 (S+V)", 
-                                tags: ["主詞一致性", "S+V"],
-                                content: "首先忽略形容詞，找出句子的核心。主詞是「想像和創意」(兩個東西)，動詞是「是」。", 
-                                tip: "注意：因為主詞有兩個 (Imagination and Creativity)，所以動詞必須用複數的 are。",
-                                vocab: ["Imagination (n.) 想像", "Creativity (n.) 創意"],
+                                title: "Step 1：抓出 S + V", 
+                                tags: ["S+V"],
+                                content: "忽略修飾語，抓出核心。主詞是「想像和創意」(兩個)，動詞是「是」。", 
+                                tip: "主詞有兩個 (Imagination and Creativity)，動詞用複數 are。",
+                                vocab: ["Imagination 想像", "Creativity 創意"],
                                 part: "Human imagination and creativity are..." 
                             },
                             { 
-                                title: "步驟二：處理修飾語 (Modifiers)", 
-                                tags: ["介系詞", "搭配詞"],
-                                content: "中文說「科技進步的驅動力」，英文習慣把長修飾語放在名詞後面。", 
-                                tip: "這裡用 'behind' (在...背後) 比單純用 'of' 更生動，表達這股力量是推動進步的幕後功臣。",
-                                vocab: ["Driving force (n.) 驅動力", "Technological advancement (n.) 科技進步"],
+                                title: "Step 2：時態與語態", 
+                                tags: ["現在式"],
+                                content: "這是一個事實陳述，使用「現在簡單式」。主動語態。", 
+                                part: "...are..." 
+                            },
+                            { 
+                                title: "Step 3：修飾語 (介系詞片語)", 
+                                tags: ["後位修飾"],
+                                content: "處理「科技進步的」驅動力。英文習慣把修飾語放在名詞後面。", 
+                                tip: "用 'behind' (在...背後) 比 'of' 更精準。",
+                                vocab: ["Driving force 驅動力", "Technological advancement 科技進步"],
                                 part: "...the greatest driving force behind technological advancement." 
                             },
                             { 
-                                title: "步驟三：組裝 (Assembly)", 
+                                title: "Step 4：組裝定稿", 
                                 tags: ["完整句"],
-                                content: "將骨架與修飾語結合，這就是一句結構嚴謹的英文。", 
+                                content: "將骨架與修飾語結合。", 
                                 part: "Human imagination and creativity are the greatest driving force behind technological advancement." 
                             }
                         ],
                         answer: "Human imagination and creativity are the greatest driving force behind technological advancement.",
-                        analysis: "主詞有兩個 (A and B) 所以動詞用複數。修飾語放在名詞後面是英文的常態。"
+                        analysis: "基礎的 S + V + C 結構，搭配介系詞片語做後位修飾。"
                     },
                     {
                         id: "t1-2",
                         chinese: "過去在科幻電影中出現的神奇物件，現在正逐一成真。",
                         guide: [
                             { 
-                                title: "步驟一：主詞定位陷阱", 
-                                tags: ["主詞判斷"],
-                                content: "這句的主詞不是「電影」，而是「物件」(Magical objects)。動詞是「成真」。", 
-                                tip: "翻譯前先問自己：是誰成真了？這樣就不會寫錯主詞。",
-                                vocab: ["Magical objects (n.) 神奇物件", "Sci-fi movies (n.) 科幻電影"],
+                                title: "Step 1：抓出 S + V", 
+                                tags: ["S+V", "主詞陷阱"],
+                                content: "主詞是「物件」(Objects)，不是電影！動詞是「成真」(become reality)。", 
+                                vocab: ["Magical objects 神奇物件"],
                                 part: "Magical objects..." 
                             },
                             { 
-                                title: "步驟二：長形容詞後置", 
-                                tags: ["關係子句", "後位修飾"],
-                                content: "把「過去在科幻電影中出現的」這個長形容詞，丟到物件後面。", 
-                                tip: "可以用關係子句 'that appeared...' 或簡化為分詞 'seen in...'。",
-                                part: "Magical objects that appeared in sci-fi movies in the past..." 
+                                title: "Step 2：時態與語態", 
+                                tags: ["現在進行式"],
+                                content: "看到「現在正...」，表示動作正在進行，用「現在進行式」(are becoming)。", 
+                                vocab: ["Come true / Become reality 成真"],
+                                part: "...are now becoming reality..." 
                             },
                             { 
-                                title: "步驟三：時態與動詞", 
-                                tags: ["現在進行式", "副詞位置"],
-                                content: "看到「現在正...」，表示動作正在進行，要用現在進行式。", 
-                                tip: "One by one (逐一) 通常放在句尾修飾整個過程。",
-                                vocab: ["Come true / Become reality (phr.) 成真", "One by one (adv.) 逐一"],
-                                part: "...are now becoming reality one by one." 
+                                title: "Step 3：修飾語 (形容詞子句)", 
+                                tags: ["形容詞子句"],
+                                content: "處理「[過去在科幻電影中出現的] 物件」。這是長的形容詞，要用形容詞子句 (that...) 放在物件後面。", 
+                                tip: "結構：N + that + V... (that appeared in sci-fi movies)",
+                                vocab: ["Sci-fi movies 科幻電影", "Appear 出現"],
+                                part: "...that appeared in sci-fi movies in the past..." 
+                            },
+                            { 
+                                title: "Step 4：副詞與組裝", 
+                                tags: ["副詞位置"],
+                                content: "加上「逐一」(one by one) 修飾整個過程，通常放句尾。", 
+                                vocab: ["One by one 逐一"],
+                                part: "Magical objects that appeared in sci-fi movies in the past are now becoming reality one by one." 
                             }
                         ],
                         answer: "Magical objects that appeared in sci-fi movies in the past are now becoming reality one by one.",
-                        analysis: "長形容詞要後置。這裡用關係子句 (that appeared...) 或分詞 (seen in...) 皆可。"
+                        analysis: "典型「形容詞子句」考題。記得把那串落落長的形容詞丟到名詞後面。"
                     }
                 ],
                 review: [
@@ -102,86 +116,101 @@
                         chinese: "互信與溝通是維持良好關係的基石。",
                         hints: { structure: "A and B are the C of D (V-ing)", vocab: ["Mutual trust", "Communication", "Cornerstone / Foundation", "Maintain"] },
                         answer: "Mutual trust and communication are the cornerstones of maintaining good relationships.",
-                        analysis: "結構模仿：A and B are the C of D。"
+                        analysis: "Step 3 重點：of + V-ing (介系詞片語修飾)。"
                     },
                     {
                         id: "r1-2",
-                        tag: "類題 2",
+                        tag: "類題 2 (形容詞子句)",
                         chinese: "那些曾經被忽略的傳統技藝，現在正慢慢重新流行。",
                         hints: { structure: "S (that...) + are V-ing + Adv", vocab: ["Traditional crafts", "Ignored / Neglected", "Come back into fashion / Regain popularity"] },
                         answer: "Those traditional crafts that were once ignored are now slowly coming back into fashion.",
-                        analysis: "結構模仿：主詞 + (被忽略的) + 正在 + 動詞。"
+                        analysis: "Step 3 重點：Crafts + that were once ignored (形容詞子句)。"
                     }
                 ]
             },
             {
                 id: "level2",
-                title: "第二關：情境連接",
-                desc: "重點：無靈主詞補述、介系詞片語 (In addition to)",
+                title: "第二關：情境與分詞",
+                type: "exercise",
+                desc: "重點：無靈主詞、轉折語、分詞構句",
                 teaching: [
                     {
                         id: "t2-1",
                         chinese: "每逢選舉季節，總會看到政治人物造訪各地著名廟宇。",
                         guide: [
                             { 
-                                title: "步驟一：尋找消失的主詞", 
-                                tags: ["補主詞", "中式英文修正"],
-                                content: "中文說「總會看到」，但沒說誰看到。英文必須補上主詞 We (我們) 或 People (人們)。", 
-                                tip: "千萬不要寫 'Every election season sees...' (雖然擬人法可以，但初學者容易寫錯)，補上 We 最保險。",
-                                vocab: ["Election season (n.) 選舉季節"],
-                                part: "During election seasons, we can always see..." 
+                                title: "Step 1：抓出 S + V (改被動)", 
+                                tags: ["被動態"],
+                                content: "中文沒有主詞，除了補 We，更棒的寫法是把受詞「政治人物」拿到前面當主詞，改成被動態。", 
+                                tip: "主動：We see politicians... → 被動：Politicians are seen...",
+                                part: "Politicians are always seen..." 
                             },
                             { 
-                                title: "步驟二：感官動詞", 
-                                tags: ["See + O + Ving"],
-                                content: "看到某人「正在做」某事，句型是：see + 受詞 + V-ing。", 
-                                tip: "用 visiting 強調我們看到的是他們造訪的「過程」和「畫面」。",
-                                vocab: ["Politicians (n.) 政治人物", "Temple (n.) 廟宇"],
-                                part: "...see politicians visiting famous temples..." 
+                                title: "Step 2：時態與語態", 
+                                tags: ["現在式", "被動語態"],
+                                content: "「總會」表示常態，用現在簡單式。結構：be + p.p. (are seen)。", 
+                                part: "Politicians are always seen..." 
                             },
                             { 
-                                title: "步驟三：地點擺放", 
-                                tags: ["地方副詞"],
-                                content: "「各地」是用來修飾廟宇位置的，放在廟宇後面。", 
-                                part: "...visiting famous temples in various places." 
+                                title: "Step 3：補語 (維持分詞)", 
+                                tags: ["感官動詞被動"],
+                                content: "感官動詞改成被動後，原本的 V-ing (visiting) 維持不變，繼續修飾主詞正在做的動作。", 
+                                vocab: ["Politicians 政治人物", "Visit 造訪"],
+                                part: "...visiting famous temples..." 
+                            },
+                            { 
+                                title: "Step 4：副詞與組裝", 
+                                tags: ["時間地點"],
+                                content: "加上時間與地點副詞。「各地」修飾廟宇。", 
+                                vocab: ["Election season 選舉季節", "Various places 各地"],
+                                part: "During election seasons, politicians are always seen visiting famous temples in various places." 
                             }
                         ],
-                        answer: "During election seasons, we can always see politicians visiting famous temples in various places.",
-                        analysis: "中文常省略主詞，英文必須補上 (We/People)。"
+                        answer: "During election seasons, politicians are always seen visiting famous temples in various places.",
+                        analysis: "Step 1 採用被動語態 (S + be seen + Ving) 是避免中式英文「無主詞」的高級技巧。"
                     },
                     {
                         id: "t2-2",
                         chinese: "除了祈求好的選舉結果，他們也希望展現對在地文化與習俗的尊重。",
                         guide: [
                             { 
-                                title: "步驟一：處理連接詞", 
-                                tags: ["轉折語", "介系詞"],
-                                content: "「除了A還有B」，要用 In addition to 或 Besides。注意 to 是介系詞，後面動詞要變 V-ing。", 
-                                tip: "如果你用 Except，意思會變成「扣掉這個不算」，這裡語意會錯喔！",
-                                vocab: ["Pray for (v.) 祈求", "Results (n.) 結果"],
-                                part: "In addition to praying for good election results,..." 
+                                title: "Step 1：抓出 S + V", 
+                                tags: ["S+V"],
+                                content: "主句的主詞是 They，動詞是 hope to show (希望展現)。", 
+                                part: "They also hope to show..." 
                             },
                             { 
-                                title: "步驟二：主句與搭配詞", 
-                                tags: ["固定搭配"],
-                                content: "主詞是他們(They)。重點搭配詞：「對...的尊重」是 respect FOR。", 
-                                tip: "Respect 搭配 for 是學測常考題，請務必記住。",
-                                vocab: ["Demonstrate / Show (v.) 展現", "Respect (n.) 尊重", "Customs (n.) 習俗"],
-                                part: "...they also hope to show their respect for local cultures and customs." 
+                                title: "Step 2：時態與語態", 
+                                tags: ["現在式"],
+                                content: "表達意願與事實，用現在式。", 
+                                part: "They also hope to show..." 
+                            },
+                            { 
+                                title: "Step 3：修飾語 (介系詞片語)", 
+                                tags: ["In addition to", "搭配詞"],
+                                content: "處理句首的「除了...」。In addition to 是介系詞，後面接 V-ing (praying)。主句受詞是 respect (搭配 for)。", 
+                                vocab: ["Pray for 祈求", "Respect for 對...的尊重"],
+                                part: "In addition to praying for good election results, ... their respect for local cultures and customs." 
+                            },
+                            { 
+                                title: "Step 4：組裝定稿", 
+                                tags: ["完整句"],
+                                content: "連接轉折語與主句。", 
+                                part: "In addition to praying for good election results, they also hope to show their respect for local cultures and customs." 
                             }
                         ],
                         answer: "In addition to praying for good election results, they also hope to show their respect for local cultures and customs.",
-                        analysis: "注意 In addition to 後面接 V-ing。Respect for 是固定搭配。"
+                        analysis: "Step 3 的重點是介系詞片語 (In addition to + Ving) 的運用。"
                     }
                 ],
                 review: [
                     {
                         id: "r2-1",
-                        tag: "類題 1",
+                        tag: "類題 1 (被動態練習)",
                         chinese: "每當颱風來襲，總會看到記者在街頭報導。",
-                        hints: { structure: "Whenever..., we can see + O + V-ing", vocab: ["Typhoon strikes", "Reporters", "Report", "On the streets"] },
-                        answer: "Whenever a typhoon strikes, we can always see reporters reporting on the streets.",
-                        analysis: "結構模仿：時間副詞 + We can see + O + V-ing。"
+                        hints: { structure: "Whenever..., reporters are seen + V-ing...", vocab: ["Typhoon strikes", "Reporters", "Report", "On the streets"] },
+                        answer: "Whenever a typhoon strikes, reporters are always seen reporting on the streets.",
+                        analysis: "Step 1 重點：改用 Reporters are seen (被動) 取代 We see reporters。"
                     },
                     {
                         id: "r2-2",
@@ -189,96 +218,210 @@
                         chinese: "除了發展經濟，政府也必須重視環境保護。",
                         hints: { structure: "In addition to V-ing..., S + V...", vocab: ["Develop economy", "Government", "Attach importance to / Value", "Environmental protection"] },
                         answer: "In addition to developing the economy, the government must also attach importance to environmental protection.",
-                        analysis: "結構模仿：In addition to + V-ing, S + V..."
+                        analysis: "Step 3 重點：In addition to developing (介系詞+Ving)。"
                     }
                 ]
             },
             {
                 id: "level3",
-                title: "第三關：高階句型",
-                desc: "重點：名詞子句 (That)、動名詞當主詞 (V-ing)",
+                title: "第三關：名詞子句與高階",
+                type: "exercise",
+                desc: "重點：名詞子句 (That...)、動名詞主詞、簡化形容詞子句",
                 teaching: [
                     {
                         id: "t3-1",
                         chinese: "歷史一再證明，戰爭會造成極為可怕的災難。",
                         guide: [
                             { 
-                                title: "步驟一：時態判斷", 
+                                title: "Step 1：抓出 S + V", 
+                                tags: ["S+V"],
+                                content: "主詞是 History，動詞是 prove (證明)。", 
+                                part: "History has proven..." 
+                            },
+                            { 
+                                title: "Step 2：時態與語態", 
                                 tags: ["現在完成式"],
-                                content: "「一再」證明表示從過去到現在累積的經驗，最佳時態是現在完成式 (has proven)。", 
-                                tip: "Time and again 是一個比 repeatedly 更高級、更有文學感的片語。",
-                                vocab: ["Repeatedly / Time and again (adv.) 一再", "Prove (v.) 證明"],
+                                content: "「一再」表示從古至今的經驗累積，用現在完成式 (has proven)。", 
+                                vocab: ["Repeatedly / Time and again 一再"],
                                 part: "History has proven time and again..." 
                             },
                             { 
-                                title: "步驟二：名詞子句", 
+                                title: "Step 3：受詞 (名詞子句)", 
                                 tags: ["名詞子句"],
-                                content: "證明了什麼？證明了「一件事」。這件事是一個完整的句子，所以用 that 來引導。", 
-                                part: "...that war causes..." 
+                                content: "證明了什麼？證明了「一件事」(戰爭造成災難)。這是一個完整的句子，前面加 that 變成名詞子句當受詞。", 
+                                tip: "結構：V + that + [ S + V + O ]",
+                                vocab: ["War 戰爭", "Cause 造成", "Devastating disasters 可怕災難"],
+                                part: "...that war causes devastating disasters." 
                             },
                             { 
-                                title: "步驟三：單字升級", 
-                                tags: ["高級字彙"],
-                                content: "用 bad 或 terrible 太普通了。形容戰爭的災難，用 devastating (毀滅性的) 會更加分。", 
-                                vocab: ["Devastating (adj.) 毀滅性的", "Disaster / Catastrophe (n.) 災難"],
-                                part: "...devastating disasters." 
+                                title: "Step 4：組裝定稿", 
+                                tags: ["完整句"],
+                                content: "將主句與名詞子句結合。", 
+                                part: "History has proven time and again that war causes devastating disasters." 
                             }
                         ],
                         answer: "History has proven time and again that war causes devastating disasters.",
-                        analysis: "抽象名詞 (歷史) 當主詞，配合完成式與名詞子句，是學術寫作常見句型。"
+                        analysis: "這是最經典的「名詞子句」當受詞的用法 (V + that clause)。"
                     },
                     {
                         id: "t3-2",
                         chinese: "避免衝突、確保世界和平應該是所有人類追求的目標。",
                         guide: [
                             { 
-                                title: "步驟一：動名詞當主詞", 
-                                tags: ["V-ing 主詞"],
-                                content: "中文的「避免」是動作，但在英文的主詞位置，必須把動作變名詞 (V-ing)。", 
-                                tip: "注意對稱性：Avoiding... and ensuring... 兩個都要用 V-ing。",
-                                vocab: ["Avoid conflicts (v.) 避免衝突", "Ensure (v.) 確保"],
-                                part: "Avoiding conflicts and ensuring world peace..." 
+                                title: "Step 1：抓出 S + V", 
+                                tags: ["動名詞主詞"],
+                                content: "主詞是「動作」(避免...確保...)，必須把動詞變名詞 (V-ing)。動詞是 should be。", 
+                                vocab: ["Avoid conflicts 避免衝突", "Ensure peace 確保和平"],
+                                part: "Avoiding conflicts and ensuring world peace should be..." 
                             },
                             { 
-                                title: "步驟二：主要動詞", 
+                                title: "Step 2：時態與語態", 
                                 tags: ["助動詞"],
-                                content: "動詞是「應該是」(should be)。", 
+                                content: "「應該是」表達期望或義務，用 should be。", 
                                 part: "...should be the goal..." 
                             },
                             { 
-                                title: "步驟三：後位修飾 (分詞)", 
-                                tags: ["分詞片語"],
-                                content: "「所有人類追求的」目標。這裡省略了關代 (that is)，直接用過去分詞 pursued 修飾 goal。", 
-                                vocab: ["Mankind / Human beings (n.) 人類", "Pursue / Seek (v.) 追求"],
+                                title: "Step 3：修飾語 (簡化形容詞子句)", 
+                                tags: ["分詞片語", "形容詞子句簡化"],
+                                content: "處理「人類追求的」目標。原本是形容詞子句 (which is pursued by...)，這裡簡化為過去分詞片語。", 
+                                tip: "目標是被追求，所以用被動的過去分詞 pursued。",
+                                vocab: ["Mankind 人類", "Pursue 追求"],
                                 part: "...pursued by all mankind." 
+                            },
+                            { 
+                                title: "Step 4：組裝定稿", 
+                                tags: ["完整句"],
+                                content: "結合動名詞主詞與後位修飾。", 
+                                part: "Avoiding conflicts and ensuring world peace should be the goal pursued by all mankind." 
                             }
                         ],
                         answer: "Avoiding conflicts and ensuring world peace should be the goal pursued by all mankind.",
-                        analysis: "動名詞片語當主詞，視為單數 (或是複合概念)。"
+                        analysis: "Step 3 展示了如何將形容詞子句簡化為分詞片語 (reduced adjective clause)。"
                     }
                 ],
                 review: [
                     {
                         id: "r3-1",
-                        tag: "類題 1",
+                        tag: "類題 1 (名詞子句)",
                         chinese: "許多研究證實，規律運動有助於改善心理健康。",
                         hints: { structure: "S + have confirmed + that + S V", vocab: ["Studies", "Confirm / Prove", "Regular exercise", "Improve", "Mental health"] },
                         answer: "Many studies have confirmed that regular exercise helps improve mental health.",
-                        analysis: "結構模仿：S + have confirmed + that + 子句。"
+                        analysis: "Step 3 重點：confirmed + that (clause) 名詞子句當受詞。"
                     },
                     {
                         id: "r3-2",
-                        tag: "類題 2",
+                        tag: "類題 2 (形容詞子句簡化)",
                         chinese: "節約能源、減少浪費是保護地球最簡單的方式。",
-                        hints: { structure: "V-ing... and V-ing... are...", vocab: ["Save energy", "Reduce waste", "The simplest way", "Protect the earth"] },
+                        hints: { structure: "V-ing... and V-ing... are... to V...", vocab: ["Save energy", "Reduce waste", "The simplest way", "Protect the earth"] },
                         answer: "Saving energy and reducing waste are the simplest ways to protect the earth.",
-                        analysis: "結構模仿：V-ing A and V-ing B + are + N..."
+                        analysis: "Step 3 重點：ways + to protect... (不定詞片語當形容詞，修飾 ways)。"
+                    }
+                ]
+            },
+            {
+                id: "level4",
+                title: "第四關：名詞 vs 形容詞子句",
+                type: "exercise",
+                desc: "終極挑戰：釐清「名詞子句」與「形容詞子句」的差異與用法",
+                concept: {
+                    title: "核心觀念比一比",
+                    items: [
+                        {
+                            type: "名詞子句 (Noun Clause)",
+                            function: "當「名詞」用 (主詞、受詞、補語)",
+                            clue: "看前面：通常是「動詞」或在「句首」",
+                            example: "I know [that he is right]. (我知道這件事)"
+                        },
+                        {
+                            type: "形容詞子句 (Adj Clause)",
+                            function: "當「形容詞」用 (修飾前面的名詞)",
+                            clue: "看前面：一定要有「名詞 (先行詞)」",
+                            example: "I know the man [who is right]. (我認識那個對的男人)"
+                        }
+                    ]
+                },
+                teaching: [
+                    {
+                        id: "t4-1",
+                        chinese: "科學家警告我們，氣候變遷將帶來嚴重後果。(名詞子句)",
+                        guide: [
+                            { 
+                                title: "Step 1：分析主詞與動詞", 
+                                tags: ["S+V"],
+                                content: "主詞 Scientists，動詞 warn (警告)。", 
+                                part: "Scientists warn us..." 
+                            },
+                            { 
+                                title: "Step 2：判斷子句類型", 
+                                tags: ["名詞子句"],
+                                content: "警告「什麼事情」？warn後面接的是一件「事實」，所以是名詞子句當受詞。", 
+                                tip: "warn us (that)... that 可省略",
+                                part: "...that climate change will bring serious consequences." 
+                            },
+                            { 
+                                title: "Step 3：組裝", 
+                                tags: ["完整句"],
+                                content: "前面是動詞 warn，帶出後面的名詞子句。", 
+                                vocab: ["Climate change", "Consequences 後果"],
+                                part: "Scientists warn us that climate change will bring serious consequences." 
+                            }
+                        ],
+                        answer: "Scientists warn us that climate change will bring serious consequences.",
+                        analysis: "這是「名詞子句」，因為整句話是 warn 的受詞。"
+                    },
+                    {
+                        id: "t4-2",
+                        chinese: "那些忽略氣候變遷警告的人，將付出代價。(形容詞子句)",
+                        guide: [
+                            { 
+                                title: "Step 1：抓出 S + V", 
+                                tags: ["S+V"],
+                                content: "主詞是「那些人」(Those people)，動詞是「付出代價」(pay the price)。", 
+                                part: "Those people... will pay the price." 
+                            },
+                            { 
+                                title: "Step 2：判斷子句類型", 
+                                tags: ["形容詞子句"],
+                                content: "哪種人？「忽略警告的」人。這是用來修飾前面的名詞 people，所以是形容詞子句。", 
+                                tip: "先行詞是 People，關代用 who",
+                                vocab: ["Ignore 忽略", "Warnings 警告"],
+                                part: "...who ignore the warnings of climate change..." 
+                            },
+                            { 
+                                title: "Step 3：組裝", 
+                                tags: ["插入形容詞子句"],
+                                content: "將形容詞子句放入主詞後面。", 
+                                part: "Those people who ignore the warnings of climate change will pay the price." 
+                            }
+                        ],
+                        answer: "Those people who ignore the warnings of climate change will pay the price.",
+                        analysis: "這是「形容詞子句」，因為它緊跟在名詞 (people) 後面修飾它。"
+                    }
+                ],
+                review: [
+                    {
+                        id: "r4-1",
+                        tag: "混合挑戰",
+                        chinese: "我們必須分辨什麼是真實的，以及那些看似真實的謊言。",
+                        hints: { 
+                            structure: "Distinguish [what is...] (Noun Cl) and [lies which...] (Adj Cl)", 
+                            vocab: ["Distinguish 分辨", "True / Real", "Lies 謊言", "Seem / Appear"] 
+                        },
+                        answer: "We must distinguish what is true and the lies which seem true.",
+                        analysis: "第一個是名詞子句(what=the thing which)，第二個是形容詞子句修飾 lies。"
+                    },
+                    {
+                        id: "r4-2",
+                        tag: "名詞子句練習",
+                        chinese: "我無法理解為什麼他拒絕了這麼好的機會。",
+                        hints: { structure: "I cannot understand [why S V...]", vocab: ["Refuse / Turn down", "Opportunity / Offer"] },
+                        answer: "I cannot understand why he refused such a good opportunity.",
+                        analysis: "Understand 後面接的名詞子句當受詞，疑問詞 why 帶頭。"
                     }
                 ]
             }
         ];
 
-        // 1. 教學模式卡片：步驟拆解 (增強版)
         const TeachingCard = ({ question, index }) => {
             const [step, setStep] = useState(0); 
             const maxSteps = question.guide.length;
@@ -288,11 +431,12 @@
             const nextStep = () => {
                 if (step < maxSteps) {
                     setStep(step + 1);
-                    // 自動捲動到新的步驟
                     setTimeout(() => {
                         if (scrollRef.current) {
-                            const newStepElement = scrollRef.current.children[step + 1]; // +1 因為有連接線div
-                            if (newStepElement) newStepElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            const children = Array.from(scrollRef.current.children);
+                            if (step < children.length) {
+                                children[step].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }
                         }
                     }, 100);
                 }
@@ -302,7 +446,6 @@
 
             return (
                 <div className="bg-white rounded-2xl shadow-lg border border-indigo-50 overflow-hidden mb-10 slide-up transform transition-all hover:shadow-xl">
-                    {/* 卡片標題區 */}
                     <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-5 border-b border-indigo-100 flex justify-between items-center">
                         <div className="flex items-center gap-3">
                             <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shadow-md">
@@ -316,74 +459,87 @@
                     </div>
 
                     <div className="p-6 md:p-8">
-                        {/* 中文題目 */}
                         <h3 className="text-2xl font-bold text-gray-800 mb-8 leading-relaxed border-l-4 border-blue-500 pl-4">
                             {question.chinese}
                         </h3>
                         
-                        <div className="relative pl-4 md:pl-8 space-y-8" ref={scrollRef}>
-                            {/* 垂直連接線 */}
-                            <div className="step-line"></div>
-
+                        <div className="space-y-0" ref={scrollRef}>
                             {question.guide.map((g, i) => {
-                                const isActive = step > i;
-                                const isCurrent = step === i + 1;
+                                const isCompleted = step > i; 
+                                const isNextActive = step > i + 1; 
+                                const isLast = i === question.guide.length - 1;
                                 
                                 return (
-                                    <div key={i} className={`relative z-10 transition-all duration-700 ${isActive ? 'opacity-100 transform translate-y-0' : 'opacity-40 blur-[1px]'}`}>
-                                        {/* 步驟圓點 */}
-                                        <div className={`absolute -left-10 md:-left-12 w-10 h-10 rounded-full flex items-center justify-center font-bold border-4 transition-all duration-500
-                                            ${isActive ? 'bg-blue-600 border-blue-100 text-white shadow-md scale-110' : 'bg-white border-gray-200 text-gray-400'}`}>
-                                            {i + 1}
-                                        </div>
-
-                                        {/* 內容卡片 */}
-                                        <div className={`bg-white rounded-xl border-2 transition-all duration-500 overflow-hidden
-                                            ${isActive ? 'border-blue-100 shadow-md' : 'border-transparent'}`}>
+                                    <div key={i} className={`flex transition-all duration-700 ${isCompleted ? 'opacity-100' : 'opacity-40 blur-[1px]'}`}>
+                                        
+                                        {/* Left Column: Fixed Timeline Layout */}
+                                        <div className="flex flex-col items-center mr-4 md:mr-6 w-10 md:w-16 flex-shrink-0">
                                             
-                                            {/* Header: Title & Tags */}
-                                            <div className={`px-5 py-3 border-b flex flex-wrap justify-between items-center gap-2 ${isActive ? 'bg-blue-50/50 border-blue-100' : 'bg-gray-50 border-gray-100'}`}>
-                                                <h4 className={`font-bold ${isActive ? 'text-blue-800' : 'text-gray-500'}`}>{g.title}</h4>
-                                                <div className="flex gap-2">
-                                                    {g.tags && g.tags.map((tag, tIdx) => (
-                                                        <span key={tIdx} className={`text-xs px-2 py-1 rounded-full font-medium ${isActive ? 'bg-blue-100 text-blue-600' : 'bg-gray-200 text-gray-400'}`}>
-                                                            #{tag}
-                                                        </span>
-                                                    ))}
-                                                </div>
+                                            {/* Top Connector */}
+                                            {i === 0 ? (
+                                                <div className="h-4 flex-shrink-0"></div>
+                                            ) : (
+                                                <div className={`w-1 h-6 transition-colors duration-500 flex-shrink-0 
+                                                    ${isCompleted ? 'bg-blue-300' : 'bg-gray-200'}`}></div>
+                                            )}
+
+                                            {/* Circle */}
+                                            <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-bold border-2 md:border-4 transition-all duration-500 z-10 flex-shrink-0
+                                                ${isCompleted ? 'bg-blue-600 border-blue-100 text-white shadow-md scale-110' : 'bg-white border-gray-200 text-gray-400'}`}>
+                                                {i + 1}
                                             </div>
 
-                                            {/* Body: Content, Tips, Vocab */}
-                                            <div className="p-5 space-y-4">
-                                                <p className="text-gray-700 leading-relaxed text-lg">{g.content}</p>
-                                                
-                                                {/* 老師小叮嚀 Tip */}
-                                                {isActive && g.tip && (
-                                                    <div className="flex items-start gap-3 bg-yellow-50 p-3 rounded-lg border border-yellow-100 text-sm text-yellow-800 animate-pulse-slow">
-                                                        <i className="fas fa-lightbulb mt-1 text-yellow-500"></i>
-                                                        <div><span className="font-bold">Teacher's Tip:</span> {g.tip}</div>
-                                                    </div>
-                                                )}
+                                            {/* Bottom Connector */}
+                                            {!isLast && (
+                                                <div className={`w-1 flex-grow transition-colors duration-500 
+                                                    ${isNextActive ? 'bg-blue-300' : 'bg-gray-200'}`}></div>
+                                            )}
+                                        </div>
 
-                                                {/* 單字 Vocab */}
-                                                {isActive && g.vocab && (
-                                                    <div className="flex flex-wrap gap-2 pt-1">
-                                                        {g.vocab.map((v, vIdx) => (
-                                                            <span key={vIdx} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded border border-gray-200">
-                                                                {v}
+                                        {/* Right Column: Content */}
+                                        <div className="flex-1 pb-8">
+                                            <div className={`bg-white rounded-xl border-2 transition-all duration-500 overflow-hidden
+                                                ${isCompleted ? 'border-blue-100 shadow-md' : 'border-transparent'}`}>
+                                                
+                                                <div className={`px-4 py-2 md:px-5 md:py-3 border-b flex flex-wrap justify-between items-center gap-2 ${isCompleted ? 'bg-blue-50/50 border-blue-100' : 'bg-gray-50 border-gray-100'}`}>
+                                                    <h4 className={`font-bold ${isCompleted ? 'text-blue-800' : 'text-gray-500'}`}>{g.title}</h4>
+                                                    <div className="flex gap-2">
+                                                        {g.tags && g.tags.map((tag, tIdx) => (
+                                                            <span key={tIdx} className={`text-xs px-2 py-1 rounded-full font-medium ${isCompleted ? 'bg-blue-100 text-blue-600' : 'bg-gray-200 text-gray-400'}`}>
+                                                                #{tag}
                                                             </span>
                                                         ))}
                                                     </div>
-                                                )}
+                                                </div>
 
-                                                {/* 英文片段 Result Part */}
-                                                {isActive && (
-                                                    <div className="mt-2 pt-3 border-t border-gray-100">
-                                                        <div className="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg font-mono text-lg shadow-sm">
-                                                            {g.part}
+                                                <div className="p-4 md:p-5 space-y-4">
+                                                    <p className="text-gray-700 leading-relaxed text-lg break-words">{g.content}</p>
+                                                    
+                                                    {isCompleted && g.tip && (
+                                                        <div className="flex items-start gap-3 bg-yellow-50 p-3 rounded-lg border border-yellow-100 text-sm text-yellow-800 animate-pulse-slow">
+                                                            <i className="fas fa-lightbulb mt-1 text-yellow-500 flex-shrink-0"></i>
+                                                            <div><span className="font-bold">Teacher's Tip:</span> {g.tip}</div>
                                                         </div>
-                                                    </div>
-                                                )}
+                                                    )}
+
+                                                    {isCompleted && g.vocab && (
+                                                        <div className="flex flex-wrap gap-2 pt-1">
+                                                            {g.vocab.map((v, vIdx) => (
+                                                                <span key={vIdx} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded border border-gray-200">
+                                                                    {v}
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                    )}
+
+                                                    {isCompleted && (
+                                                        <div className="mt-2 pt-3 border-t border-gray-100">
+                                                            <div className="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg font-mono text-lg shadow-sm break-all">
+                                                                {g.part}
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -391,11 +547,10 @@
                             })}
                         </div>
 
-                        {/* 完成後的完整答案區 */}
                         {isFinished && (
-                            <div className="mt-10 p-6 bg-green-50 border-2 border-green-200 rounded-2xl fade-in text-center shadow-inner">
+                            <div className="mt-6 p-6 bg-green-50 border-2 border-green-200 rounded-2xl fade-in text-center shadow-inner">
                                 <p className="text-xs font-bold tracking-widest text-green-600 uppercase mb-2">Complete Sentence</p>
-                                <p className="text-xl md:text-2xl font-bold text-green-800 leading-normal font-serif">
+                                <p className="text-xl md:text-2xl font-bold text-green-800 leading-normal font-serif break-words">
                                     {question.answer}
                                 </p>
                             </div>
@@ -422,8 +577,7 @@
             );
         };
 
-        // 2. 練習模式卡片：輸入與檢查
-        const PracticeCard = ({ question, index }) => {
+        const PracticeCard = ({ question, index, referenceQuestion }) => {
             const [input, setInput] = useState("");
             const [showResult, setShowResult] = useState(false);
             const [showHint, setShowHint] = useState(false);
@@ -445,6 +599,15 @@
                     </div>
                     
                     <div className="p-6 md:p-8">
+                        {referenceQuestion && (
+                            <div className="mb-6 p-4 bg-slate-50 border-l-4 border-blue-400 rounded-r-lg text-sm text-slate-600">
+                                <div className="flex items-center gap-2 mb-2 text-blue-600 font-bold uppercase tracking-wide text-xs">
+                                    <i className="fas fa-history"></i> 觀念回顧 (剛剛學到的句型)
+                                </div>
+                                <p className="font-medium text-lg text-slate-800">{referenceQuestion.chinese}</p>
+                            </div>
+                        )}
+
                         <h3 className="text-xl font-bold text-gray-800 mb-6">{question.chinese}</h3>
                         
                         {showHint && (
@@ -498,7 +661,7 @@
 
         function App() {
             const [activeTab, setActiveTab] = useState("level1");
-            const [mode, setMode] = useState("teaching"); // 'teaching' | 'practice'
+            const [mode, setMode] = useState("teaching"); 
 
             const currentLevel = levels.find(l => l.id === activeTab);
 
@@ -517,13 +680,14 @@
                         </div>
                         
                         {/* Tabs */}
-                        <div className="flex justify-center px-4 max-w-2xl mx-auto">
+                        <div className="flex justify-center px-4 max-w-2xl mx-auto overflow-x-auto no-scrollbar">
                             {levels.map(level => (
                                 <button
                                     key={level.id}
                                     onClick={() => setActiveTab(level.id)}
-                                    className={`flex-1 pb-4 text-sm md:text-base font-medium transition-all relative ${activeTab === level.id ? 'tab-active' : 'tab-inactive'}`}
+                                    className={`flex-1 pb-4 text-sm md:text-base font-medium transition-all relative whitespace-nowrap px-4 ${activeTab === level.id ? 'tab-active' : 'tab-inactive'}`}
                                 >
+                                    {level.type === 'grammar' && <i className="fas fa-book mr-2"></i>}
                                     {level.title}
                                 </button>
                             ))}
@@ -544,14 +708,39 @@
                             </div>
                         </div>
 
-                        {/* Mode Content */}
                         {mode === 'teaching' ? (
                             <div className="fade-in max-w-3xl mx-auto">
+                                
+                                {currentLevel.concept && (
+                                    <div className="mb-10 p-6 md:p-8 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100 shadow-sm">
+                                        <div className="flex items-center gap-3 mb-6">
+                                            <div className="bg-indigo-600 text-white p-2 rounded-lg">
+                                                <i className="fas fa-balance-scale text-xl"></i>
+                                            </div>
+                                            <h3 className="font-bold text-indigo-900 text-2xl">{currentLevel.concept.title}</h3>
+                                        </div>
+                                        <div className="grid md:grid-cols-2 gap-6">
+                                            {currentLevel.concept.items.map((item, idx) => (
+                                                <div key={idx} className="bg-white p-5 rounded-xl shadow-sm border border-indigo-50 concept-card">
+                                                    <div className="text-xs font-bold text-indigo-400 tracking-wider mb-2 uppercase">{item.type}</div>
+                                                    <div className="font-bold text-gray-800 text-lg mb-2">{item.function}</div>
+                                                    <div className="text-sm bg-yellow-50 text-yellow-800 p-2 rounded mb-3 border border-yellow-100">
+                                                        <i className="fas fa-key mr-1"></i> 關鍵：{item.clue}
+                                                    </div>
+                                                    <div className="text-sm text-gray-500 italic border-l-2 border-gray-300 pl-2">
+                                                        {item.example}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
                                 <div className="mb-8 p-4 bg-blue-50 rounded-xl border border-blue-100 flex items-start gap-3">
-                                    <div className="bg-blue-100 p-2 rounded-full text-blue-600"><i className="fas fa-info"></i></div>
+                                    <div className="bg-blue-100 p-2 rounded-full text-blue-600 flex-shrink-0"><i className="fas fa-info"></i></div>
                                     <div>
                                         <p className="font-bold text-blue-900 text-sm">如何使用教學模式？</p>
-                                        <p className="text-sm text-blue-800/80 mt-1">不需要打字。請點擊卡片下方的按鈕，一步步觀察英文句子是如何從中文邏輯中「長」出來的。注意每個步驟的「關鍵單字」與「老師小叮嚀」。</p>
+                                        <p className="text-sm text-blue-800/80 mt-1">不需要打字。請點擊卡片下方的按鈕，一步步觀察英文句子是如何從中文邏輯中「長」出來的。</p>
                                     </div>
                                 </div>
                                 
@@ -576,7 +765,7 @@
                                         <div className="bg-green-100 p-2 rounded-full text-green-600 mt-1"><i className="fas fa-dumbbell"></i></div>
                                         <div>
                                             <p className="font-bold text-green-900">現在輪到你了！</p>
-                                            <p className="text-sm text-green-800">運用剛剛學到的邏輯（主詞定位、後位修飾等），試著翻譯下方的「類題」。</p>
+                                            <p className="text-sm text-green-800">運用剛剛學到的邏輯，試著翻譯下方的「類題」。上方會顯示對應的原句供您參考。</p>
                                         </div>
                                     </div>
                                     <button onClick={() => setMode("teaching")} className="text-sm text-blue-600 hover:text-blue-800 underline font-medium whitespace-nowrap">
@@ -585,7 +774,12 @@
                                 </div>
 
                                 {currentLevel.review.map((q, idx) => (
-                                    <PracticeCard key={q.id} question={q} index={idx} />
+                                    <PracticeCard 
+                                        key={q.id} 
+                                        question={q} 
+                                        index={idx} 
+                                        referenceQuestion={currentLevel.teaching[idx]} 
+                                    />
                                 ))}
 
                                 <div className="text-center mt-12 p-8 bg-white rounded-2xl shadow-lg border border-gray-100">
