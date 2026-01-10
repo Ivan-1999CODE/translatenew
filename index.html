@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>學測翻譯鷹架訓練營</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f8fafc; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        .slide-up { animation: slideUp 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .tab-active { border-bottom: 3px solid #16a34a; color: #15803d; font-weight: bold; background-color: #f0fdf4; }
+        .tab-inactive { color: #64748b; hover:text-green-600; hover:bg-white; }
+        .step-line { position: absolute; left: 19px; top: 35px; bottom: 0; width: 2px; background: #cbd5e1; z-index: 0; }
+        .highlight-text { background: linear-gradient(120deg, #bbf7d0 0%, #bbf7d0 100%); background-repeat: no-repeat; background-size: 100% 40%; background-position: 0 88%; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const levels = [
+            {
+                id: "level1",
+                title: "第一關：基礎結構",
+                desc: "重點：抓出主詞、後位修飾 (A of B / 關代)",
+                teaching: [
+                    {
+                        id: "t1-1",
+                        chinese: "人類的想像和創意是科技進步最大的驅動力。",
+                        guide: [
+                            { 
+                                title: "步驟一：抓出骨架 (S+V)", 
+                                tags: ["主詞一致性", "S+V"],
+                                content: "首先忽略形容詞，找出句子的核心。主詞是「想像和創意」(兩個東西)，動詞是「是」。", 
+                                tip: "注意：因為主詞有兩個 (Imagination and Creativity)，所以動詞必須用複數的 are。",
+                                vocab: ["Imagination (n.) 想像", "Creativity (n.) 創意"],
+                                part: "Human imagination and creativity are..." 
+                            },
+                            { 
+                                title: "步驟二：處理修飾語 (Modifiers)", 
+                                tags: ["介系詞", "搭配詞"],
+                                content: "中文說「科技進步的驅動力」，英文習慣把長修飾語放在名詞後面。", 
+                                tip: "這裡用 'behind' (在...背後) 比單純用 'of' 更生動，表達這股力量是推動進步的幕後功臣。",
+                                vocab: ["Driving force (n.) 驅動力", "Technological advancement (n.) 科技進步"],
+                                part: "...the greatest driving force behind technological advancement." 
+                            },
+                            { 
+                                title: "步驟三：組裝 (Assembly)", 
+                                tags: ["完整句"],
+                                content: "將骨架與修飾語結合，這就是一句結構嚴謹的英文。", 
+                                part: "Human imagination and creativity are the greatest driving force behind technological advancement." 
+                            }
+                        ],
+                        answer: "Human imagination and creativity are the greatest driving force behind technological advancement.",
+                        analysis: "主詞有兩個 (A and B) 所以動詞用複數。修飾語放在名詞後面是英文的常態。"
+                    },
+                    {
+                        id: "t1-2",
+                        chinese: "過去在科幻電影中出現的神奇物件，現在正逐一成真。",
+                        guide: [
+                            { 
+                                title: "步驟一：主詞定位陷阱", 
+                                tags: ["主詞判斷"],
+                                content: "這句的主詞不是「電影」，而是「物件」(Magical objects)。動詞是「成真」。", 
+                                tip: "翻譯前先問自己：是誰成真了？這樣就不會寫錯主詞。",
+                                vocab: ["Magical objects (n.) 神奇物件", "Sci-fi movies (n.) 科幻電影"],
+                                part: "Magical objects..." 
+                            },
+                            { 
+                                title: "步驟二：長形容詞後置", 
+                                tags: ["關係子句", "後位修飾"],
+                                content: "把「過去在科幻電影中出現的」這個長形容詞，丟到物件後面。", 
+                                tip: "可以用關係子句 'that appeared...' 或簡化為分詞 'seen in...'。",
+                                part: "Magical objects that appeared in sci-fi movies in the past..." 
+                            },
+                            { 
+                                title: "步驟三：時態與動詞", 
+                                tags: ["現在進行式", "副詞位置"],
+                                content: "看到「現在正...」，表示動作正在進行，要用現在進行式。", 
+                                tip: "One by one (逐一) 通常放在句尾修飾整個過程。",
+                                vocab: ["Come true / Become reality (phr.) 成真", "One by one (adv.) 逐一"],
+                                part: "...are now becoming reality one by one." 
+                            }
+                        ],
+                        answer: "Magical objects that appeared in sci-fi movies in the past are now becoming reality one by one.",
+                        analysis: "長形容詞要後置。這裡用關係子句 (that appeared...) 或分詞 (seen in...) 皆可。"
+                    }
+                ],
+                review: [
+                    {
+                        id: "r1-1",
+                        tag: "類題 1",
+                        chinese: "互信與溝通是維持良好關係的基石。",
+                        hints: { structure: "A and B are the C of D (V-ing)", vocab: ["Mutual trust", "Communication", "Cornerstone / Foundation", "Maintain"] },
+                        answer: "Mutual trust and communication are the cornerstones of maintaining good relationships.",
+                        analysis: "結構模仿：A and B are the C of D。"
+                    },
+                    {
+                        id: "r1-2",
+                        tag: "類題 2",
+                        chinese: "那些曾經被忽略的傳統技藝，現在正慢慢重新流行。",
+                        hints: { structure: "S (that...) + are V-ing + Adv", vocab: ["Traditional crafts", "Ignored / Neglected", "Come back into fashion / Regain popularity"] },
+                        answer: "Those traditional crafts that were once ignored are now slowly coming back into fashion.",
+                        analysis: "結構模仿：主詞 + (被忽略的) + 正在 + 動詞。"
+                    }
+                ]
+            },
+            {
+                id: "level2",
+                title: "第二關：情境連接",
+                desc: "重點：無靈主詞補述、介系詞片語 (In addition to)",
+                teaching: [
+                    {
+                        id: "t2-1",
+                        chinese: "每逢選舉季節，總會看到政治人物造訪各地著名廟宇。",
+                        guide: [
+                            { 
+                                title: "步驟一：尋找消失的主詞", 
+                                tags: ["補主詞", "中式英文修正"],
+                                content: "中文說「總會看到」，但沒說誰看到。英文必須補上主詞 We (我們) 或 People (人們)。", 
+                                tip: "千萬不要寫 'Every election season sees...' (雖然擬人法可以，但初學者容易寫錯)，補上 We 最保險。",
+                                vocab: ["Election season (n.) 選舉季節"],
+                                part: "During election seasons, we can always see..." 
+                            },
+                            { 
+                                title: "步驟二：感官動詞", 
+                                tags: ["See + O + Ving"],
+                                content: "看到某人「正在做」某事，句型是：see + 受詞 + V-ing。", 
+                                tip: "用 visiting 強調我們看到的是他們造訪的「過程」和「畫面」。",
+                                vocab: ["Politicians (n.) 政治人物", "Temple (n.) 廟宇"],
+                                part: "...see politicians visiting famous temples..." 
+                            },
+                            { 
+                                title: "步驟三：地點擺放", 
+                                tags: ["地方副詞"],
+                                content: "「各地」是用來修飾廟宇位置的，放在廟宇後面。", 
+                                part: "...visiting famous temples in various places." 
+                            }
+                        ],
+                        answer: "During election seasons, we can always see politicians visiting famous temples in various places.",
+                        analysis: "中文常省略主詞，英文必須補上 (We/People)。"
+                    },
+                    {
+                        id: "t2-2",
+                        chinese: "除了祈求好的選舉結果，他們也希望展現對在地文化與習俗的尊重。",
+                        guide: [
+                            { 
+                                title: "步驟一：處理連接詞", 
+                                tags: ["轉折語", "介系詞"],
+                                content: "「除了A還有B」，要用 In addition to 或 Besides。注意 to 是介系詞，後面動詞要變 V-ing。", 
+                                tip: "如果你用 Except，意思會變成「扣掉這個不算」，這裡語意會錯喔！",
+                                vocab: ["Pray for (v.) 祈求", "Results (n.) 結果"],
+                                part: "In addition to praying for good election results,..." 
+                            },
+                            { 
+                                title: "步驟二：主句與搭配詞", 
+                                tags: ["固定搭配"],
+                                content: "主詞是他們(They)。重點搭配詞：「對...的尊重」是 respect FOR。", 
+                                tip: "Respect 搭配 for 是學測常考題，請務必記住。",
+                                vocab: ["Demonstrate / Show (v.) 展現", "Respect (n.) 尊重", "Customs (n.) 習俗"],
+                                part: "...they also hope to show their respect for local cultures and customs." 
+                            }
+                        ],
+                        answer: "In addition to praying for good election results, they also hope to show their respect for local cultures and customs.",
+                        analysis: "注意 In addition to 後面接 V-ing。Respect for 是固定搭配。"
+                    }
+                ],
+                review: [
+                    {
+                        id: "r2-1",
+                        tag: "類題 1",
+                        chinese: "每當颱風來襲，總會看到記者在街頭報導。",
+                        hints: { structure: "Whenever..., we can see + O + V-ing", vocab: ["Typhoon strikes", "Reporters", "Report", "On the streets"] },
+                        answer: "Whenever a typhoon strikes, we can always see reporters reporting on the streets.",
+                        analysis: "結構模仿：時間副詞 + We can see + O + V-ing。"
+                    },
+                    {
+                        id: "r2-2",
+                        tag: "類題 2",
+                        chinese: "除了發展經濟，政府也必須重視環境保護。",
+                        hints: { structure: "In addition to V-ing..., S + V...", vocab: ["Develop economy", "Government", "Attach importance to / Value", "Environmental protection"] },
+                        answer: "In addition to developing the economy, the government must also attach importance to environmental protection.",
+                        analysis: "結構模仿：In addition to + V-ing, S + V..."
+                    }
+                ]
+            },
+            {
+                id: "level3",
+                title: "第三關：高階句型",
+                desc: "重點：名詞子句 (That)、動名詞當主詞 (V-ing)",
+                teaching: [
+                    {
+                        id: "t3-1",
+                        chinese: "歷史一再證明，戰爭會造成極為可怕的災難。",
+                        guide: [
+                            { 
+                                title: "步驟一：時態判斷", 
+                                tags: ["現在完成式"],
+                                content: "「一再」證明表示從過去到現在累積的經驗，最佳時態是現在完成式 (has proven)。", 
+                                tip: "Time and again 是一個比 repeatedly 更高級、更有文學感的片語。",
+                                vocab: ["Repeatedly / Time and again (adv.) 一再", "Prove (v.) 證明"],
+                                part: "History has proven time and again..." 
+                            },
+                            { 
+                                title: "步驟二：名詞子句", 
+                                tags: ["名詞子句"],
+                                content: "證明了什麼？證明了「一件事」。這件事是一個完整的句子，所以用 that 來引導。", 
+                                part: "...that war causes..." 
+                            },
+                            { 
+                                title: "步驟三：單字升級", 
+                                tags: ["高級字彙"],
+                                content: "用 bad 或 terrible 太普通了。形容戰爭的災難，用 devastating (毀滅性的) 會更加分。", 
+                                vocab: ["Devastating (adj.) 毀滅性的", "Disaster / Catastrophe (n.) 災難"],
+                                part: "...devastating disasters." 
+                            }
+                        ],
+                        answer: "History has proven time and again that war causes devastating disasters.",
+                        analysis: "抽象名詞 (歷史) 當主詞，配合完成式與名詞子句，是學術寫作常見句型。"
+                    },
+                    {
+                        id: "t3-2",
+                        chinese: "避免衝突、確保世界和平應該是所有人類追求的目標。",
+                        guide: [
+                            { 
+                                title: "步驟一：動名詞當主詞", 
+                                tags: ["V-ing 主詞"],
+                                content: "中文的「避免」是動作，但在英文的主詞位置，必須把動作變名詞 (V-ing)。", 
+                                tip: "注意對稱性：Avoiding... and ensuring... 兩個都要用 V-ing。",
+                                vocab: ["Avoid conflicts (v.) 避免衝突", "Ensure (v.) 確保"],
+                                part: "Avoiding conflicts and ensuring world peace..." 
+                            },
+                            { 
+                                title: "步驟二：主要動詞", 
+                                tags: ["助動詞"],
+                                content: "動詞是「應該是」(should be)。", 
+                                part: "...should be the goal..." 
+                            },
+                            { 
+                                title: "步驟三：後位修飾 (分詞)", 
+                                tags: ["分詞片語"],
+                                content: "「所有人類追求的」目標。這裡省略了關代 (that is)，直接用過去分詞 pursued 修飾 goal。", 
+                                vocab: ["Mankind / Human beings (n.) 人類", "Pursue / Seek (v.) 追求"],
+                                part: "...pursued by all mankind." 
+                            }
+                        ],
+                        answer: "Avoiding conflicts and ensuring world peace should be the goal pursued by all mankind.",
+                        analysis: "動名詞片語當主詞，視為單數 (或是複合概念)。"
+                    }
+                ],
+                review: [
+                    {
+                        id: "r3-1",
+                        tag: "類題 1",
+                        chinese: "許多研究證實，規律運動有助於改善心理健康。",
+                        hints: { structure: "S + have confirmed + that + S V", vocab: ["Studies", "Confirm / Prove", "Regular exercise", "Improve", "Mental health"] },
+                        answer: "Many studies have confirmed that regular exercise helps improve mental health.",
+                        analysis: "結構模仿：S + have confirmed + that + 子句。"
+                    },
+                    {
+                        id: "r3-2",
+                        tag: "類題 2",
+                        chinese: "節約能源、減少浪費是保護地球最簡單的方式。",
+                        hints: { structure: "V-ing... and V-ing... are...", vocab: ["Save energy", "Reduce waste", "The simplest way", "Protect the earth"] },
+                        answer: "Saving energy and reducing waste are the simplest ways to protect the earth.",
+                        analysis: "結構模仿：V-ing A and V-ing B + are + N..."
+                    }
+                ]
+            }
+        ];
+
+        // 1. 教學模式卡片：步驟拆解 (增強版)
+        const TeachingCard = ({ question, index }) => {
+            const [step, setStep] = useState(0); 
+            const maxSteps = question.guide.length;
+            const isFinished = step >= maxSteps;
+            const scrollRef = useRef(null);
+
+            const nextStep = () => {
+                if (step < maxSteps) {
+                    setStep(step + 1);
+                    // 自動捲動到新的步驟
+                    setTimeout(() => {
+                        if (scrollRef.current) {
+                            const newStepElement = scrollRef.current.children[step + 1]; // +1 因為有連接線div
+                            if (newStepElement) newStepElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }, 100);
+                }
+            };
+
+            const reset = () => setStep(0);
+
+            return (
+                <div className="bg-white rounded-2xl shadow-lg border border-indigo-50 overflow-hidden mb-10 slide-up transform transition-all hover:shadow-xl">
+                    {/* 卡片標題區 */}
+                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-5 border-b border-indigo-100 flex justify-between items-center">
+                        <div className="flex items-center gap-3">
+                            <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shadow-md">
+                                {index + 1}
+                            </span>
+                            <span className="text-blue-900 font-bold text-lg tracking-wide">觀念解析</span>
+                        </div>
+                        <button onClick={reset} className="text-sm text-blue-500 hover:text-blue-700 font-medium px-3 py-1 rounded-full hover:bg-blue-100 transition-colors">
+                            <i className="fas fa-redo-alt mr-1"></i> 重播
+                        </button>
+                    </div>
+
+                    <div className="p-6 md:p-8">
+                        {/* 中文題目 */}
+                        <h3 className="text-2xl font-bold text-gray-800 mb-8 leading-relaxed border-l-4 border-blue-500 pl-4">
+                            {question.chinese}
+                        </h3>
+                        
+                        <div className="relative pl-4 md:pl-8 space-y-8" ref={scrollRef}>
+                            {/* 垂直連接線 */}
+                            <div className="step-line"></div>
+
+                            {question.guide.map((g, i) => {
+                                const isActive = step > i;
+                                const isCurrent = step === i + 1;
+                                
+                                return (
+                                    <div key={i} className={`relative z-10 transition-all duration-700 ${isActive ? 'opacity-100 transform translate-y-0' : 'opacity-40 blur-[1px]'}`}>
+                                        {/* 步驟圓點 */}
+                                        <div className={`absolute -left-10 md:-left-12 w-10 h-10 rounded-full flex items-center justify-center font-bold border-4 transition-all duration-500
+                                            ${isActive ? 'bg-blue-600 border-blue-100 text-white shadow-md scale-110' : 'bg-white border-gray-200 text-gray-400'}`}>
+                                            {i + 1}
+                                        </div>
+
+                                        {/* 內容卡片 */}
+                                        <div className={`bg-white rounded-xl border-2 transition-all duration-500 overflow-hidden
+                                            ${isActive ? 'border-blue-100 shadow-md' : 'border-transparent'}`}>
+                                            
+                                            {/* Header: Title & Tags */}
+                                            <div className={`px-5 py-3 border-b flex flex-wrap justify-between items-center gap-2 ${isActive ? 'bg-blue-50/50 border-blue-100' : 'bg-gray-50 border-gray-100'}`}>
+                                                <h4 className={`font-bold ${isActive ? 'text-blue-800' : 'text-gray-500'}`}>{g.title}</h4>
+                                                <div className="flex gap-2">
+                                                    {g.tags && g.tags.map((tag, tIdx) => (
+                                                        <span key={tIdx} className={`text-xs px-2 py-1 rounded-full font-medium ${isActive ? 'bg-blue-100 text-blue-600' : 'bg-gray-200 text-gray-400'}`}>
+                                                            #{tag}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            {/* Body: Content, Tips, Vocab */}
+                                            <div className="p-5 space-y-4">
+                                                <p className="text-gray-700 leading-relaxed text-lg">{g.content}</p>
+                                                
+                                                {/* 老師小叮嚀 Tip */}
+                                                {isActive && g.tip && (
+                                                    <div className="flex items-start gap-3 bg-yellow-50 p-3 rounded-lg border border-yellow-100 text-sm text-yellow-800 animate-pulse-slow">
+                                                        <i className="fas fa-lightbulb mt-1 text-yellow-500"></i>
+                                                        <div><span className="font-bold">Teacher's Tip:</span> {g.tip}</div>
+                                                    </div>
+                                                )}
+
+                                                {/* 單字 Vocab */}
+                                                {isActive && g.vocab && (
+                                                    <div className="flex flex-wrap gap-2 pt-1">
+                                                        {g.vocab.map((v, vIdx) => (
+                                                            <span key={vIdx} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded border border-gray-200">
+                                                                {v}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                )}
+
+                                                {/* 英文片段 Result Part */}
+                                                {isActive && (
+                                                    <div className="mt-2 pt-3 border-t border-gray-100">
+                                                        <div className="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg font-mono text-lg shadow-sm">
+                                                            {g.part}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                        {/* 完成後的完整答案區 */}
+                        {isFinished && (
+                            <div className="mt-10 p-6 bg-green-50 border-2 border-green-200 rounded-2xl fade-in text-center shadow-inner">
+                                <p className="text-xs font-bold tracking-widest text-green-600 uppercase mb-2">Complete Sentence</p>
+                                <p className="text-xl md:text-2xl font-bold text-green-800 leading-normal font-serif">
+                                    {question.answer}
+                                </p>
+                            </div>
+                        )}
+
+                        <div className="mt-8 flex justify-center">
+                            {!isFinished ? (
+                                <button 
+                                    onClick={nextStep}
+                                    className="group bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-10 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg flex items-center"
+                                >
+                                    {step === 0 ? "開始拆解" : "下一步"} 
+                                    <i className="fas fa-arrow-down ml-2 group-hover:translate-y-1 transition-transform"></i>
+                                </button>
+                            ) : (
+                                <div className="text-gray-400 font-medium flex items-center bg-gray-100 px-4 py-2 rounded-full">
+                                    <i className="fas fa-check-circle text-green-500 mr-2 text-xl"></i> 
+                                    解析完成，請嘗試練習模式
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // 2. 練習模式卡片：輸入與檢查
+        const PracticeCard = ({ question, index }) => {
+            const [input, setInput] = useState("");
+            const [showResult, setShowResult] = useState(false);
+            const [showHint, setShowHint] = useState(false);
+
+            return (
+                <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden mb-8 slide-up hover:shadow-lg transition-shadow">
+                    <div className="p-4 border-b bg-gradient-to-r from-green-50 to-emerald-50 border-green-100 flex justify-between items-center">
+                        <div className="flex items-center gap-3">
+                            <span className="px-3 py-1 rounded-full text-xs font-bold bg-green-600 text-white shadow-sm">
+                                {question.tag}
+                            </span>
+                            <span className="text-sm text-green-800 font-bold flex items-center">
+                                <i className="fas fa-dumbbell mr-2"></i>結構模仿挑戰
+                            </span>
+                        </div>
+                        <button onClick={() => setShowHint(!showHint)} className="text-sm text-amber-600 hover:text-amber-700 font-medium bg-amber-50 px-3 py-1 rounded-full border border-amber-200 transition-colors">
+                            <i className="far fa-lightbulb mr-1"></i> {showHint ? "隱藏提示" : "提示"}
+                        </button>
+                    </div>
+                    
+                    <div className="p-6 md:p-8">
+                        <h3 className="text-xl font-bold text-gray-800 mb-6">{question.chinese}</h3>
+                        
+                        {showHint && (
+                            <div className="mb-6 p-4 bg-amber-50 rounded-xl text-sm text-gray-700 fade-in border border-amber-200 shadow-sm">
+                                <div className="flex items-start gap-2 mb-2">
+                                    <i className="fas fa-hammer text-amber-500 mt-1"></i>
+                                    <p><strong>句型參考：</strong>{question.hints.structure}</p>
+                                </div>
+                                <div className="flex flex-wrap gap-2 pl-6">
+                                    {question.hints.vocab.map((v, i) => (
+                                        <span key={i} className="bg-white px-2 py-1 rounded border border-amber-200 text-xs text-gray-600 shadow-sm">{v}</span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        <textarea 
+                            className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-100 focus:border-green-500 transition-all mb-4 text-lg text-gray-700 leading-relaxed"
+                            rows="3"
+                            placeholder="運用剛剛學到的結構試試看..."
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                        />
+
+                        {!showResult ? (
+                            <button 
+                                onClick={() => setShowResult(true)}
+                                className="w-full py-3 rounded-xl font-bold text-white transition-all bg-gray-800 hover:bg-black shadow-md hover:shadow-lg"
+                            >
+                                檢查答案
+                            </button>
+                        ) : (
+                            <div className="fade-in bg-green-50 p-6 rounded-xl border border-green-200 mt-2 shadow-inner">
+                                <div className="mb-4">
+                                    <span className="text-xs font-bold text-green-600 uppercase tracking-wider block mb-1">參考解答</span>
+                                    <p className="text-xl font-medium text-green-900 font-serif">{question.answer}</p>
+                                </div>
+                                <div className="text-sm text-gray-700 border-t border-green-200 pt-3 mt-3 flex items-start gap-2 bg-white/50 p-3 rounded-lg">
+                                    <i className="fas fa-info-circle mt-0.5 text-blue-500"></i>
+                                    <span>{question.analysis}</span>
+                                </div>
+                                <div className="mt-4 text-right">
+                                    <button onClick={() => setShowResult(false)} className="text-xs text-gray-400 hover:text-gray-600 underline">收起解析</button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        function App() {
+            const [activeTab, setActiveTab] = useState("level1");
+            const [mode, setMode] = useState("teaching"); // 'teaching' | 'practice'
+
+            const currentLevel = levels.find(l => l.id === activeTab);
+
+            useEffect(() => {
+                setMode("teaching");
+                window.scrollTo(0, 0);
+            }, [activeTab]);
+
+            return (
+                <div className="min-h-screen pb-12 max-w-4xl mx-auto bg-gray-50/50">
+                    {/* Header */}
+                    <div className="bg-white/95 backdrop-blur-sm pt-8 pb-0 sticky top-0 z-30 shadow-sm border-b border-gray-200">
+                        <div className="px-4 mb-6 text-center">
+                            <h1 className="text-3xl font-extrabold text-gray-800 tracking-tight">學測翻譯<span className="text-green-600">鷹架訓練營</span></h1>
+                            <p className="text-gray-500 text-sm mt-1">Scaffolding Translation Training</p>
+                        </div>
+                        
+                        {/* Tabs */}
+                        <div className="flex justify-center px-4 max-w-2xl mx-auto">
+                            {levels.map(level => (
+                                <button
+                                    key={level.id}
+                                    onClick={() => setActiveTab(level.id)}
+                                    className={`flex-1 pb-4 text-sm md:text-base font-medium transition-all relative ${activeTab === level.id ? 'tab-active' : 'tab-inactive'}`}
+                                >
+                                    {level.title}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="px-4 py-8">
+                        {/* Mode Indicator */}
+                        <div className="flex justify-center items-center mb-10">
+                            <div className={`flex items-center px-6 py-2 rounded-full border ${mode === 'teaching' ? 'bg-white border-blue-200 shadow-sm' : 'bg-transparent border-transparent'}`}>
+                                <div className={`w-3 h-3 rounded-full mr-2 ${mode === 'teaching' ? 'bg-blue-500 animate-pulse' : 'bg-gray-300'}`}></div>
+                                <span className={`font-bold ${mode === 'teaching' ? 'text-blue-700' : 'text-gray-400'}`}>觀念拆解</span>
+                            </div>
+                            <div className="w-12 h-0.5 bg-gray-300 mx-2"></div>
+                            <div className={`flex items-center px-6 py-2 rounded-full border ${mode === 'practice' ? 'bg-white border-green-200 shadow-sm' : 'bg-transparent border-transparent'}`}>
+                                <div className={`w-3 h-3 rounded-full mr-2 ${mode === 'practice' ? 'bg-green-500 animate-pulse' : 'bg-gray-300'}`}></div>
+                                <span className={`font-bold ${mode === 'practice' ? 'text-green-700' : 'text-gray-400'}`}>實戰演練</span>
+                            </div>
+                        </div>
+
+                        {/* Mode Content */}
+                        {mode === 'teaching' ? (
+                            <div className="fade-in max-w-3xl mx-auto">
+                                <div className="mb-8 p-4 bg-blue-50 rounded-xl border border-blue-100 flex items-start gap-3">
+                                    <div className="bg-blue-100 p-2 rounded-full text-blue-600"><i className="fas fa-info"></i></div>
+                                    <div>
+                                        <p className="font-bold text-blue-900 text-sm">如何使用教學模式？</p>
+                                        <p className="text-sm text-blue-800/80 mt-1">不需要打字。請點擊卡片下方的按鈕，一步步觀察英文句子是如何從中文邏輯中「長」出來的。注意每個步驟的「關鍵單字」與「老師小叮嚀」。</p>
+                                    </div>
+                                </div>
+                                
+                                {currentLevel.teaching.map((q, idx) => (
+                                    <TeachingCard key={q.id} question={q} index={idx} />
+                                ))}
+
+                                <div className="text-center py-10 border-t border-gray-200 mt-8">
+                                    <p className="text-gray-500 mb-4 font-medium">看懂了解構邏輯嗎？</p>
+                                    <button 
+                                        onClick={() => { setMode("practice"); window.scrollTo(0, 0); }}
+                                        className="bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-12 rounded-full shadow-xl transition-transform transform hover:scale-105 text-lg flex items-center mx-auto"
+                                    >
+                                        進入練習模式 <i className="fas fa-arrow-right ml-3"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="fade-in max-w-3xl mx-auto">
+                                <div className="mb-8 bg-green-50 border border-green-200 p-5 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4 shadow-sm">
+                                    <div className="flex items-start gap-3">
+                                        <div className="bg-green-100 p-2 rounded-full text-green-600 mt-1"><i className="fas fa-dumbbell"></i></div>
+                                        <div>
+                                            <p className="font-bold text-green-900">現在輪到你了！</p>
+                                            <p className="text-sm text-green-800">運用剛剛學到的邏輯（主詞定位、後位修飾等），試著翻譯下方的「類題」。</p>
+                                        </div>
+                                    </div>
+                                    <button onClick={() => setMode("teaching")} className="text-sm text-blue-600 hover:text-blue-800 underline font-medium whitespace-nowrap">
+                                        <i className="fas fa-history mr-1"></i>回去複習觀念
+                                    </button>
+                                </div>
+
+                                {currentLevel.review.map((q, idx) => (
+                                    <PracticeCard key={q.id} question={q} index={idx} />
+                                ))}
+
+                                <div className="text-center mt-12 p-8 bg-white rounded-2xl shadow-lg border border-gray-100">
+                                    <div className="w-16 h-16 bg-yellow-100 text-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-sm">
+                                        <i className="fas fa-trophy"></i>
+                                    </div>
+                                    <h3 className="text-xl font-bold text-gray-800">本單元挑戰完成！</h3>
+                                    <p className="text-gray-500 mt-2">休息一下，或者點擊上方分頁切換到下一關。</p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
