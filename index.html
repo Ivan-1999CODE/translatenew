@@ -4,22 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>學測翻譯鷹架訓練營</title>
+    <!-- React & ReactDOM -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel for JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f8fafc; }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        
+        body { 
+            font-family: 'Noto Sans TC', sans-serif; 
+            background-color: #f8fafc; 
+            -webkit-font-smoothing: antialiased;
+        }
         .fade-in { animation: fadeIn 0.5s ease-in; }
         .slide-up { animation: slideUp 0.5s ease-out; }
+        
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .tab-active { border-bottom: 3px solid #16a34a; color: #15803d; font-weight: bold; background-color: #f0fdf4; }
-        .tab-inactive { color: #64748b; hover:text-green-600; hover:bg-white; }
+        
+        .tab-active { 
+            border-bottom: 3px solid #16a34a; 
+            color: #15803d; 
+            font-weight: 700; 
+            background-color: #f0fdf4; 
+        }
+        .tab-inactive { 
+            color: #64748b; 
+            border-bottom: 3px solid transparent;
+        }
+        .tab-inactive:hover {
+            color: #16a34a;
+            background-color: #fff;
+        }
+        
         .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
         .concept-card { transition: transform 0.2s; }
         .concept-card:hover { transform: translateY(-2px); }
+        
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
     </style>
 </head>
 <body>
@@ -28,6 +63,7 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
+        // 教材資料結構
         const levels = [
             {
                 id: "level1",
@@ -401,27 +437,28 @@
                 review: [
                     {
                         id: "r4-1",
-                        tag: "混合挑戰",
-                        chinese: "我們必須分辨什麼是真實的，以及那些看似真實的謊言。",
+                        tag: "名詞子句 (必考句型)",
+                        chinese: "沒有人能否認，環境保護對我們的未來至關重要。",
                         hints: { 
-                            structure: "Distinguish [what is...] (Noun Cl) and [lies which...] (Adj Cl)", 
-                            vocab: ["Distinguish 分辨", "True / Real", "Lies 謊言", "Seem / Appear"] 
+                            structure: "No one can deny [that S + V...] (Noun Cl)", 
+                            vocab: ["Deny 否認", "Environmental protection", "Crucial / Vital 至關重要的"] 
                         },
-                        answer: "We must distinguish what is true and the lies which seem true.",
-                        analysis: "第一個是名詞子句(what=the thing which)，第二個是形容詞子句修飾 lies。"
+                        answer: "No one can deny that environmental protection is crucial to our future.",
+                        analysis: "這是學測作文結尾萬用句型。Deny 後面接的事情是「受詞」，用名詞子句 (that...) 呈現。"
                     },
                     {
                         id: "r4-2",
-                        tag: "名詞子句練習",
-                        chinese: "我無法理解為什麼他拒絕了這麼好的機會。",
-                        hints: { structure: "I cannot understand [why S V...]", vocab: ["Refuse / Turn down", "Opportunity / Offer"] },
-                        answer: "I cannot understand why he refused such a good opportunity.",
-                        analysis: "Understand 後面接的名詞子句當受詞，疑問詞 why 帶頭。"
+                        tag: "形容詞子句 (Those who)",
+                        chinese: "那些願意在逆境中堅持下去的人，最終將獲得成功。",
+                        hints: { structure: "Those [who V...] (Adj Cl) + will V...", vocab: ["Those who... 那些...的人", "Willing to 願意", "Persist / Persevere 堅持", "Adversity 逆境", "Eventually 最終"] },
+                        answer: "Those who are willing to persist in adversity will eventually achieve success.",
+                        analysis: "「那些...的人」英文標準寫法是 Those who...，who 引導的形容詞子句修飾 Those。"
                     }
                 ]
             }
         ];
 
+        // Component: Teaching Card (Timeline Style)
         const TeachingCard = ({ question, index }) => {
             const [step, setStep] = useState(0); 
             const maxSteps = question.guide.length;
@@ -431,6 +468,7 @@
             const nextStep = () => {
                 if (step < maxSteps) {
                     setStep(step + 1);
+                    // Auto scroll to next step logic could go here
                     setTimeout(() => {
                         if (scrollRef.current) {
                             const children = Array.from(scrollRef.current.children);
@@ -577,6 +615,7 @@
             );
         };
 
+        // Component: Practice Card
         const PracticeCard = ({ question, index, referenceQuestion }) => {
             const [input, setInput] = useState("");
             const [showResult, setShowResult] = useState(false);
